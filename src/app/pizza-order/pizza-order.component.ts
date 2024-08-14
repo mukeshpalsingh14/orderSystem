@@ -53,7 +53,7 @@ export class PizzaOrderComponent {
     } else if (this.order.selectedOffer === 'offer2') {
       return 9; 
     } else if (this.order.selectedOffer === 'offer3' && this.order.pizzaSize === 'Large') {
-      const toppingCount = this.getToppingCountForOffer3(); 
+      const toppingCount = this.getToppingOffer3(); 
       if (toppingCount <= 4) {
         const pizzaPrice = this.sizePrices.Large;
         const toppingsCost = this.calculateToppingsCostForOffer3();
@@ -65,12 +65,12 @@ export class PizzaOrderComponent {
       total += this.sizePrices[this.order.pizzaSize];
     }
   
-    total += this.calculateToppingsCost();
+    total += this.calculateToppings();
   
     return total;
   }
 
-  calculateToppingsCost(): number {
+  calculateToppings(): number {
     let toppingCost = 0;
     for (const [topping, selected] of Object.entries(this.order.toppings)) {
       if (selected && this.isToppingValid(topping)) {
@@ -83,14 +83,14 @@ export class PizzaOrderComponent {
   isToppingValid(topping: string): topping is keyof typeof this.toppingPrices {
     return topping in this.toppingPrices;
   }
-  getToppingCountForOffer3(): number {
+  getToppingOffer3(): number {
     let count = 0;
     for (const [topping, selected] of Object.entries(this.order.toppings)) {
       if (selected) {
         if (topping === 'Pepperoni' || topping === 'BarbecueChicken') {
-          count += 2; // These toppings count as 2 each
+          count += 2; 
         } else {
-          count += 1; // Other toppings count as 1
+          count += 1; 
         }
       }
     }
@@ -102,15 +102,12 @@ export class PizzaOrderComponent {
     for (const [topping, selected] of Object.entries(this.order.toppings)) {
       if (selected) {
         if (topping === 'Pepperoni' || topping === 'BarbecueChicken') {
-          // Pepperoni and Barbecue Chicken count as 2, so we add the price twice if it's selected
           toppingCost += this.toppingPrices[topping as keyof typeof this.toppingPrices] * 2;
           toppingCount += 2;
         } else {
           toppingCost += this.toppingPrices[topping as keyof typeof this.toppingPrices];
           toppingCount += 1;
         }
-  
-        // Stop when 4 toppings are counted
         if (toppingCount >= 4) {
           break;
         }
