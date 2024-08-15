@@ -38,3 +38,17 @@
     border-color: #007bff; /* Blue border on focus */
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Adds a glow effect when focused */
   }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+table, th, td {
+    border: 1px solid black;
+}
+th, td {
+    padding: 10px;
+    text-align: center;
+}

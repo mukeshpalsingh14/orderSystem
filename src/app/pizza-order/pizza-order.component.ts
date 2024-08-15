@@ -48,11 +48,11 @@ export class PizzaOrderComponent {
   calculateTotal(): number {
     let total = 0;
     let toppingCount = 0;
-    if (this.order.selectedOffer === 'offer1') {
+    if (this.order.selectedOffer === 'offer1' && this.order.pizzaSize === 'Medium') {
       toppingCount = this.ToppingCount();
       if (toppingCount == 2)
         return 5;
-    } else if (this.order.selectedOffer === 'offer2') {
+    } else if (this.order.selectedOffer === 'offer2' && this.order.pizzaSize === 'Medium') {
       toppingCount = this.ToppingCount();
       if (this.ToppingCount() == 4)
         return 9;
