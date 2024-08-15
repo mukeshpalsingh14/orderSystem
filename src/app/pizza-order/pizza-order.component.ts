@@ -47,13 +47,14 @@ export class PizzaOrderComponent {
 
   calculateTotal(): number {
     let total = 0;
-
+    let toppingCount = 0;
     if (this.order.selectedOffer === 'offer1') {
-      return 5;
+      toppingCount = this.ToppingCount();
+      if (toppingCount == 2)
+        return 5;
     } else if (this.order.selectedOffer === 'offer2') {
-      const toppingCount = this.getToppingOffer2();
-     
-      if (toppingCount == 4)
+      toppingCount = this.ToppingCount();
+      if (this.ToppingCount() == 4)
         return 9;
     } else if (this.order.selectedOffer === 'offer3' && this.order.pizzaSize === 'Large') {
       const toppingCount = this.getToppingOffer3();
@@ -86,11 +87,11 @@ export class PizzaOrderComponent {
   isToppingValid(topping: string): topping is keyof typeof this.toppingPrices {
     return topping in this.toppingPrices;
   }
-  getToppingOffer2(): number {
+  ToppingCount(): number {
     let count = 0;
     for (const [topping, selected] of Object.entries(this.order.toppings)) {
       if (selected) {
-      count += 1;
+        count += 1;
       }
     }
     return count;
