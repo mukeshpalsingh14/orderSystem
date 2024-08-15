@@ -6,10 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./pizza-order.component.css']
 })
 export class PizzaOrderComponent {
- 
+
   pizzaSizes: ('Small' | 'Medium' | 'Large' | 'ExtraLarge')[] = ['Small', 'Medium', 'Large', 'ExtraLarge'];
 
-  toppingsList: ('Tomatoes' | 'Onions' | 'BellPepper' | 'Mushrooms' | 'Pineapple' | 'Sausage' | 'Pepperoni' | 'BarbecueChicken')[] = 
+  toppingsList: ('Tomatoes' | 'Onions' | 'BellPepper' | 'Mushrooms' | 'Pineapple' | 'Sausage' | 'Pepperoni' | 'BarbecueChicken')[] =
     ['Tomatoes', 'Onions', 'BellPepper', 'Mushrooms', 'Pineapple', 'Sausage', 'Pepperoni', 'BarbecueChicken'];
 
   order = {
@@ -47,26 +47,29 @@ export class PizzaOrderComponent {
 
   calculateTotal(): number {
     let total = 0;
-  
+
     if (this.order.selectedOffer === 'offer1') {
-      return 5; 
+      return 5;
     } else if (this.order.selectedOffer === 'offer2') {
-      return 9; 
+      const toppingCount = this.getToppingOffer2();
+     
+      if (toppingCount == 4)
+        return 9;
     } else if (this.order.selectedOffer === 'offer3' && this.order.pizzaSize === 'Large') {
-      const toppingCount = this.getToppingOffer3(); 
+      const toppingCount = this.getToppingOffer3();
       if (toppingCount <= 4) {
         const pizzaPrice = this.sizePrices.Large;
         const toppingsCost = this.calculateToppingsCostForOffer3();
         return (pizzaPrice + toppingsCost) * 0.5;
       }
     }
-  
+
     if (this.order.pizzaSize) {
       total += this.sizePrices[this.order.pizzaSize];
     }
-  
+
     total += this.calculateToppings();
-  
+
     return total;
   }
 
@@ -83,14 +86,23 @@ export class PizzaOrderComponent {
   isToppingValid(topping: string): topping is keyof typeof this.toppingPrices {
     return topping in this.toppingPrices;
   }
+  getToppingOffer2(): number {
+    let count = 0;
+    for (const [topping, selected] of Object.entries(this.order.toppings)) {
+      if (selected) {
+      count += 1;
+      }
+    }
+    return count;
+  }
   getToppingOffer3(): number {
     let count = 0;
     for (const [topping, selected] of Object.entries(this.order.toppings)) {
       if (selected) {
         if (topping === 'Pepperoni' || topping === 'BarbecueChicken') {
-          count += 2; 
+          count += 2;
         } else {
-          count += 1; 
+          count += 1;
         }
       }
     }
