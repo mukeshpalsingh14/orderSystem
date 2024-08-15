@@ -15,4 +15,26 @@
     display: block;
     margin-bottom: 10px;
   }
+  .select-offer-dropdown {
+    width: 100%; /* Full width of the container */
+    padding: 10px; /* Adds padding inside the dropdown for a better look */
+    font-size: 16px; /* Adjusts the font size for readability */
+    border: 1px solid #ccc; /* Light border around the dropdown */
+    border-radius: 4px; /* Rounds the corners */
+    background-color: #f9f9f9; /* Light background color */
+    color: #333; /* Text color */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for a lifted effect */
+    transition: all 0.3s ease; /* Smooth transition effect */
+  }
   
+  .select-offer-dropdown:hover {
+    background-color: #fff; /* Changes background on hover */
+    border-color: #007bff; /* Changes border color on hover */
+  }
+  
+  .select-offer-dropdown:focus {
+    outline: none; /* Removes the default focus outline */
+    border-color: #007bff; /* Blue border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Adds a glow effect when focused */
+  }
